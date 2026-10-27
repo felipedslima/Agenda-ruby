@@ -1,0 +1,9 @@
+<%if flash[:error].present?%>
+    <div class = "flash-error">
+        <%=flash[:error]%>
+    </div>
+<%end%>
+
+<h1> Editar Contato </h1>
+
+<%= render 'form' %>

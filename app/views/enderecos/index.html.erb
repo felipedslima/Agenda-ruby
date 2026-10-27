@@ -1,0 +1,26 @@
+<link rel="css" href="/assets/stylesheets/contatos.css">
+
+<h1 class= "titulo">Endereços</h1>
+
+<p class= "botao"><%= link_to 'Cadastrar endereco', new_endereco_path %></p>
+<% if @enderecos.blank? %>
+    <p>A agenda ainda está vazia. Cadastre o primeiro endereco.</p>
+<% else %>
+   <table>
+    <thead>
+        <tr>
+          <th>Rua</th>
+        </tr>
+    </thead>
+        <tbody>
+            <% @enderecos.each do |endereco| %>
+            <tr>
+              <td class= "rua"><%= link_to endereco.rua, endereco_path(endereco.id) %></td>
+              <td class= "botao"><%= link_to "Editar", edit_endereco_path(endereco.id) %> </td>
+              <td class= "botao"><%= link_to "Excluir", destroy_endereco_path(endereco.id), method: :delete, confirm: "Você tem certeza que deseja excluir?" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+    <%= link_to "Ir para contatos", contatos_path() %>
+<% end %>

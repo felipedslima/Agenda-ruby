@@ -1,0 +1,25 @@
+<%= form_for @contato do |f| %>
+    <div>
+      <%= f.label :nome, 'Nome' %>
+      <%= f.text_field :nome %>
+    </div>
+
+    <div>
+      <%= f.label :email, 'E-mail' %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div>
+      <%= f.label :telefone, 'Telefone' %>
+      <%= f.number_field :telefone %>
+    </div>
+
+    <div>
+      <%= f.label :endereco_id, 'Endereço' %>
+      <%= f.select :endereco_id, 
+        options_for_select(@enderecos.map { |endereco| ["#{endereco.rua} - #{endereco.bairro} - #{endereco.numero}", endereco.id] }, @contato.endereco_id),
+        { include_blank: "Sem endereço" }
+      %>
+    </div>
+    <%= f.submit 'Salvar contato'%>
+<% end %>

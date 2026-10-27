@@ -1,0 +1,18 @@
+<%= form_for @endereco do |f| %>
+    <div>
+      <%= f.label :rua, 'Rua' %>
+      <%= f.text_field :rua %>
+    </div>
+
+    <div>
+      <%= f.label :bairro, 'Bairro' %>
+      <%= f.text_field :bairro %>
+    </div>
+
+    <div>
+      <%= f.label :numero, 'Numero' %>
+      <%= f.number_field :numero %>
+    </div>
+
+    <%= f.submit 'Salvar endereço'%>
+<% end %>

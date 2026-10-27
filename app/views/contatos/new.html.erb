@@ -1,0 +1,10 @@
+<%if flash[:error].present?%>
+    <div class = "flash-error">
+        <%=flash[:error]%>
+    </div>
+<%end%>
+
+<h1>Novo contato</h1>
+
+<%= render "form" %>
+<p><%= link_to 'Voltar', contatos_path %></p>

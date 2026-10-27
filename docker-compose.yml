@@ -1,0 +1,38 @@
+services:
+   web:
+      build: .
+      container_name: teste_web
+      command: sh -c "bundle exec rake db:create db:migrate && bundle exec rails s -b 0.0.0.0 -p 3000"
+      ports:
+         - "3000:3000"
+      volumes:
+         - .:/teste
+         - bundle_cache:/usr/local/bundle
+      depends_on:
+         db:
+            condition: service_healthy # Garante que só inicia após o banco aceitar conexões
+      environment:
+         RAILS_ENV: development
+         DATABASE_URL: postgres://postgres:postgres@db:5432/teste_development
+
+   db:
+      image: postgres:9.5
+      container_name: teste_db
+      environment:
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: postgres
+         POSTGRES_DB: teste_development
+      ports:
+         - "5432:5432"
+      volumes:
+         - pg_data:/var/lib/postgresql/data
+      # --- Adicionado para resolver o problema de sincronia ---
+      healthcheck:
+         test: ["CMD-SHELL", "pg_isready -U postgres"]
+         interval: 3s
+         timeout: 3s
+         retries: 5
+
+volumes:
+   pg_data:
+   bundle_cache:

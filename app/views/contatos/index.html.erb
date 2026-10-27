@@ -1,0 +1,40 @@
+<link rel="css" href="/assets/stylesheets/contatos.css">
+
+<%if flash[:success].present?%>
+    <div class = "flash-success">
+        <%=flash[:success]%>
+    </div>
+<%end%>
+
+<h1 class= "titulo">Contatos</h1>
+
+<p class= "botao"><%= link_to 'Cadastrar contato', new_contato_path %></p>
+<% if @contatos.blank? %>
+    <p>A agenda ainda está vazia. Cadastre o primeiro contato.</p>
+<% else %>
+   <table>
+    <thead>
+        <tr>
+          <th>Nome</th>
+        </tr>
+    </thead>
+        <tbody>
+            <% @contatos.each do |contato| %>
+            <tr>
+              <td class= "nome"><%= link_to contato.nome, contato_path(contato.id) %></td>
+              <td>
+                <% if contato.endereco %>
+                        <%=link_to 'Endereço', endereco_path(contato.endereco.id)%>
+                <%else%>
+                        <%='Sem endereço'%>
+                <%end%>
+              </td>
+              <td class= "botao", id= "editar_botao"><%= link_to "Editar", edit_contato_path(contato.id) %> </td>
+              <td class= "botao"><%= link_to "Excluir", destroy_contato_path(contato.id), method: :delete, confirm: "Você tem certeza que deseja excluir?" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+    <%= link_to "Ir para endereços", enderecos_path() %>
+<% end %>
+<script src="/assets/javascript/contatos.js"></script>
